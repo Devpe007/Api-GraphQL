@@ -22,3 +22,5 @@ class Tweet implements ITweet {
     @Field({ nullable: true })
     updatedAt: Date;
 };
+
+export default Tweet;
