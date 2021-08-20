@@ -11,6 +11,19 @@ class TweetController {
         return tweets;
     };
 
+    @Query( returns => Tweet, { name: 'tweet' } )
+    async findById(
+        @Arg( "id" ) id: string,
+    ) {
+        const tweet = await MongoTweet.findById(id);
+
+        if(!tweet) {
+            throw new Error('Tweet does not exists');
+        };
+
+        return tweet;
+    };
+
     @Mutation( returns => Tweet, { name: 'createTweets' } )
     async create(
         @Arg( "author" ) author: string,
