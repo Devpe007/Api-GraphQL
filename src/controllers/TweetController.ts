@@ -33,6 +33,16 @@ class TweetController {
         return tweet;
     };
 
+    @Mutation( returns => Tweet, { name: 'updateTweet' } )
+    async update(
+        @Arg( "id" ) id: string,
+        @Arg( "author" ) author?: string,
+        @Arg( "description" ) description?: string,
+    ) {
+        const tweet = await MongoTweet.findByIdAndUpdate( id, { author, description }, { new: true } );
+        return tweet;
+    };
+
     @Mutation( returns => Tweet, { name: 'upvoteTweet' } )
     async upvoteTweet(
         @Arg( "id" ) id: string,
