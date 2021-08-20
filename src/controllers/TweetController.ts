@@ -36,6 +36,23 @@ class TweetController {
 
         return tweet;
     };
+
+    @Mutation( returns => Tweet, { name: 'downvoteTweet' } )
+    async downvoteTweet(
+        @Arg( "id" ) id: string,  
+    ) {
+        const tweet = await MongoTweet.findById(id);
+
+        if(!tweet) {
+            throw new Error('Tweet does not exists');
+        };
+
+        tweet.set({ likes: tweet?.likes - 1 });
+
+        await tweet.save();
+
+        return tweet;
+    };
 };
 
 export default TweetController;
